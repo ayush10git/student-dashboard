@@ -1,15 +1,12 @@
-import localFont from "next/font/local";
+import Sidebar from "@/components/Sidebar";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import { Roboto } from "next/font/google";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["100", "300", "500", "700", "900"],
 });
 
 export const metadata = {
@@ -20,10 +17,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${roboto.className} flex`}>
+        <AppRouterCacheProvider>
+          <Sidebar />
+          <div className="">
+            <Navbar />
+            {children}
+          </div>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );
